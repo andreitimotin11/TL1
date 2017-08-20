@@ -15,9 +15,7 @@ Route::get('/', ['as'=>'home', 'uses' => 'Admin\IndexController@show']);
 Route::get('/article/{id}', ['as'=>'article',function ($id) {
 	echo $id;
 }]);
-Route::get('/articles', ['as'=>'articles',function () {
-	echo 1;
-}]);
+Route::get('/articles', ['as'=>'articles','uses'=> 'Admin\Core@getArticles']);
 Route::get('/page/{cat}/{id}', function ($cat, $id) {
 	
 //	echo config('app.locale');
