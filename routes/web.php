@@ -11,22 +11,37 @@
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
-Route::get('/page', function () {
-	echo '<pre>';
-	print_r($_ENV);
-	echo '</pre>';
+Route::get('/', ['as'=>'home', 'uses' => 'Admin\IndexController@show']);
+Route::get('/article/{id}', ['as'=>'article',function ($id) {
+	echo $id;
+}]);
+Route::get('/articles', ['as'=>'articles',function () {
+	echo 1;
+}]);
+Route::get('/page/{cat}/{id}', function ($cat, $id) {
+	
 //	echo config('app.locale');
-	echo Config::set('app.locale', 'ru');
-	echo Config::get('app.locale');
-	echo env('APP_ENV');
-});
+	
+	echo $id . ', ' . $cat;
+})->where([ 'cat' => '[A-Za-z]+']);
+
 Route::post('/comments', function () {
 	print_r($_POST);
 //	print_r($_GET);
 });
 Route::get('/form1', function (){
-	include __DIR__. "/../resources/views/form1.blade.php";
+	 return view('form1');
 });
+Route::group(['prefix'=>'admin'],function (){
+	Route::get('page/create/{var}',function ($id){
+		$route = Route::current();
+//		echo $route->getName();
+//		echo $route->parameter('var',20);
+		print_r($route->parameters()) ;
+//		return redirect()->route('article', ['id'=>26]);
+	})->name('createpage');
+	Route::get('page/edit',function (){
+		echo 'Page/edit';
+	});
+});
+Route::get('/about', ['uses' =>'Admin\AboutController@show', 'as'=> 'about']);
