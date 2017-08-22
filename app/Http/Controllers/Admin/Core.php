@@ -6,9 +6,10 @@ use App\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Core extends Controller
 {
+	use SoftDeletes;
 	protected static $articles;
 	
 	public function __construct()
@@ -23,6 +24,7 @@ class Core extends Controller
 	
 	public function getArticles()
 	{
+		
 //		$articles = DB::table('articles')->get();
 //		$articles = DB::table('articles')->first();
 //		$articles = DB::table('articles')->value('name');
@@ -59,7 +61,7 @@ class Core extends Controller
 //
 //		$articles = Article::find(1);
 //		$articles = Article::where('id', 1)->first();
-		
+
 //		Article::findOrFail(111);
 //		Article::where('id',1)->firstOrFail();
 //
@@ -74,12 +76,26 @@ class Core extends Controller
 //		$article->name = 'New name 2';
 //		$article->text = 'New text 2';
 //		$article->save();
-		Article::create([
-				'name'=>'Hello world',
-				'text'=>'text'
+		/*Article::create([
+				'name' => 'Hello world',
+				'text' => 'text'
 			]
-		);
+		);*/
+		/*$article =  Article::firstOrCreate([
+			'name' => 'Hello world1', // original
+			'text' => 'text'
+		]);*/
+		/*$article = Article::firstOrNew([
+		 'name' => 'Hello world12', // original
+		 'text' => 'text'
+	 ]);*/
+		/*		 $article = Article::find(29);
+				 $article->delete();*/
+//		Article::destroy([28, 27]);
+		Article::where('id', '>', 7)->delete();
+
 //		dump($article);
+		dump(Article::all());
 //		dump(self::$articles);
 	}
 	

@@ -11,5 +11,7 @@ class Article extends Model
 	protected $primaryKey = 'id';
 //	public $incrementing;
 //	public $timestamps = false;
-	protected $fillable = ['name'];
+	protected $fillable = ['name', 'text'];
+	protected $guarded = ['*'];
+	protected $dates = ['deleted_at'];
 }
