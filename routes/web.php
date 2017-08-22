@@ -17,16 +17,15 @@ Route::get('/article/{id}', ['as'=>'article',function ($id) {
 }]);
 Route::get('/articles', ['as'=>'articles','uses'=> 'Admin\Core@getArticles']);
 Route::get('/page/{cat}/{id}', function ($cat, $id) {
-	
-//	echo config('app.locale');
-	
+
 	echo $id . ', ' . $cat;
 })->where([ 'cat' => '[A-Za-z]+']);
 
-Route::post('/comments', function () {
+Route::post('/comments', ['as'=>'comments', function () {
+	
 	print_r($_POST);
 //	print_r($_GET);
-});
+}]);
 Route::get('/form1', function (){
 	 return view('form1');
 });
@@ -43,3 +42,12 @@ Route::group(['prefix'=>'admin'],function (){
 	});
 });
 Route::get('/about', ['uses' =>'Admin\AboutController@show', 'as'=> 'about']);
+Route::match(['get', 'post'],'/page', function (){
+	return view('page');
+});
+Route::any('/login', ['as'=>'login', function (){
+	echo "tu nu esti logat!";
+}]);
+
+Route::get('/form', ['uses'=>'Feedback@actionShowForm', 'as'=>'form' ]);
+Route::post('/form', ['uses'=>'Feedback@actionSaveForm', 'as'=>'form' ]);
