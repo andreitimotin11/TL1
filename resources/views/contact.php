@@ -5,12 +5,25 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        ul>li{
+        ul > li {
             padding-bottom: 10px;
         }
     </style>
 </head>
 <body>
+<?php if (count($errors) > 0): ?>
+
+    <div class="alert alert-danger">
+        <ul>
+					<?php foreach ($errors->all() as $error) : ?>
+              <li> <?= $error; ?> </li>
+					<?php endforeach; ?>
+        </ul>
+    </div>
+	<?
+endif;
+?>
+
 <form action="<?php echo route('contact') ?>" method="post">
 	<?php echo csrf_field(); ?>
     <!--    <label>Name:<br>
@@ -21,7 +34,7 @@
 				<label>Phone:<br><input type="tel" name="phone"></label>
 				<label>Company:<br><input type="company" name="company"></label>-->
     <!--{{--<input type="hidden" name="_method" value="PUT">--}}-->
-    <ul >
+    <ul>
         <li><label for="name">Name: </label>
             <input type="text" name="name"></li>
         <li><label for="email">Email: </label><input type="text" name="email"></li>
