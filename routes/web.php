@@ -51,3 +51,4 @@ Route::any('/login', ['as'=>'login', function (){
 
 Route::get('/form', ['uses'=>'Feedback@actionShowForm', 'as'=>'form' ]);
 Route::post('/form', ['uses'=>'Feedback@actionSaveForm', 'as'=>'form' ]);
+Route::match(['get','post'],'/contact',['uses'=>'ContactController@show', 'as'=>'contact' ]);
